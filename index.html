@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>株式会社ULDNLC Innovations - 公式サイト</title>
+    <!-- Tailwind CSSを読み込み -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Inter)を読み込み -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* カスタムスタイル */
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #0a0a0a;
+            color: #e5e5e5;
+        }
+
+        .wrapper {
+            overflow-x: hidden;
+        }
+
+        /* 背景ビデオのコンテナ */
+        .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -2;
+        }
+
+        #bg-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* ビデオの上の黒いオーバーレイ */
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+
+        /* スキャンラインエフェクト */
+        .scanline-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0) 50%,
+                rgba(0, 0, 0, 0.1) 50%,
+                rgba(0, 0, 0, 0.15)
+            );
+            background-size: 100% 4px;
+            animation: scan 10s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100vh; }
+        }
+
+
+        /* スクロールアニメーション用の基本スタイル */
+        .scroll-fade {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .scroll-fade.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* グリッチアニメーション (Subtle Version) */
+        .scroll-glitch {
+            opacity: 0;
+        }
+        .scroll-glitch.visible {
+            opacity: 1;
+            animation: glitch-subtle 0.5s forwards;
+        }
+
+        @keyframes glitch-subtle {
+            0% {
+                text-shadow: 0 0 #fff;
+            }
+            25% {
+                text-shadow: 2px 2px 0px rgba(255, 0, 193, 0.5), -2px -2px 0px rgba(0, 255, 249, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 #fff;
+            }
+            75% {
+                text-shadow: -2px 2px 0px rgba(255, 0, 193, 0.5), 2px -2px 0px rgba(0, 255, 249, 0.5);
+            }
+            100% {
+                text-shadow: 0 0 #fff;
+            }
+        }
+
+        /* ナビゲーションのメニューボタン（ハンバーガー）のスタイル */
+        .menu-trigger span {
+            transition: all .4s;
+            box-sizing: border-box;
+        }
+        .menu-trigger.active span:nth-of-type(1) {
+            transform: translateY(10px) rotate(-45deg);
+        }
+        .menu-trigger.active span:nth-of-type(2) {
+            opacity: 0;
+        }
+        .menu-trigger.active span:nth-of-type(3) {
+            transform: translateY(-10px) rotate(45deg);
+        }
+
+        /* スクロール時にアクティブなナビゲーションリンクを示すスタイル */
+        .nav-link-active {
+            color: white !important;
+            border-color: #3b82f6;
+        }
+    </style>
+</head>
+<body class="antialiased">
+<div class="wrapper">
+    <!-- ヘッダー -->
+    <header id="header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-black">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center relative">
+            <div>
+                <a href="#">
+                    <img src="image/uldnlc-logo2.jpeg" alt="ULDNLC Innovations Logo" class="h-12 w-auto">
+                </a>
+            </div>
+            <!-- PC用ナビゲーション -->
+            <nav class="hidden md:flex items-center space-x-8 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+                <a href="#about" class="nav-link text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1">会社概要</a>
+                <a href="#portfolio" class="nav-link text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1">実績</a>
+                <a href="#pricing" class="nav-link text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1">料金表</a>
+                <a href="#news" class="nav-link text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1">お知らせ</a>
+                <a href="#policy" class="nav-link text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1">ポリシー</a>
+                <a href="#contact" class="nav-link text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1">お問い合わせ</a>
+            </nav>
+            <!-- モバイル用メニューボタン -->
+            <button id="menu-button" class="md:hidden z-50 menu-trigger space-y-2">
+                <span class="block w-8 h-0.5 bg-white"></span>
+                <span class="block w-8 h-0.5 bg-white"></span>
+                <span class="block w-8 h-0.5 bg-white"></span>
+            </button>
+        </div>
+    </header>
+    
+    <!-- モバイル用ナビゲーション -->
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-black bg-opacity-95 z-40 md:hidden">
+        <nav class="flex flex-col items-center justify-center h-full space-y-8">
+            <a href="#about" class="mobile-nav-link text-2xl text-gray-300 hover:text-white transition-colors">会社概要</a>
+            <a href="#portfolio" class="mobile-nav-link text-2xl text-gray-300 hover:text-white transition-colors">実績</a>
+            <a href="#pricing" class="mobile-nav-link text-2xl text-gray-300 hover:text-white transition-colors">料金表</a>
+            <a href="#news" class="mobile-nav-link text-2xl text-gray-300 hover:text-white transition-colors">お知らせ</a>
+            <a href="#policy" class="mobile-nav-link text-2xl text-gray-300 hover:text-white transition-colors">ポリシー</a>
+            <a href="#contact" class="mobile-nav-link text-2xl text-gray-300 hover:text-white transition-colors">お問い合わせ</a>
+        </nav>
+    </div>
+
+    <main>
+        <!-- メインビュー -->
+        <section class="h-screen flex items-center justify-center text-center relative">
+            <div class="video-container">
+                <video id="bg-video" src="image/uldnlc-video.mp4" autoplay muted loop playsinline></video>
+            </div>
+            <div class="video-overlay"></div>
+            <div class="scanline-overlay"></div>
+            <div class="z-10 px-4">
+                <h1 class="text-5xl md:text-8xl font-black uppercase tracking-widest leading-tight">
+                    ULDNLC <br class="md:hidden"> 
+                </h1>
+                <p class="mt-4 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
+                    文章を挿入
+                </p>
+            </div>
+        </section>
+
+        <!-- 会社概要 -->
+        <section id="about" class="py-20 md:py-32">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-24 items-start">
+                    <!-- Left Column: Images -->
+                    <div class="scroll-fade flex flex-col items-start gap-8">
+                        <img src="image/free_image1.webp" alt="代表者" class="w-full md:w-3/4 ml-auto rounded-lg shadow-2xl">
+                        <img src="image/free_image2.webp" alt="会社外観" class="w-full md:w-1/2 rounded-lg shadow-2xl">
+                    </div>
+                    <!-- Right Column: Text and Links -->
+                    <div class="scroll-fade md:pt-16" style="transition-delay: 200ms;">
+                        <p class="text-gray-400 leading-relaxed">
+                            ここに会社や事業に関する説明文を挿入します。私たちのビジョン、ミッション、そしてこれまでの歩みについて詳しくご紹介します。革新的な技術と創造性で、未来のスタンダードを築きます。
+                        </p>
+                        <p class="text-gray-400 leading-relaxed mt-4">
+                            精密に、ダイナミックに。明日のモノづくりの世界に新たな基準を刻むために、挑戦を続けます。
+                        </p>
+                        <div class="mt-12 space-y-6">
+                            <a href="#portfolio" class="flex justify-between items-center text-lg text-white hover:text-blue-500 transition-colors pb-2 border-b border-gray-700">
+                                <span><span class="text-blue-500 mr-2">></span>実績</span>
+                                <span class="text-sm text-gray-400">View More</span>
+                            </a>
+                            <a href="#pricing" class="flex justify-between items-center text-lg text-white hover:text-blue-500 transition-colors pb-2 border-b border-gray-700">
+                                <span><span class="text-blue-500 mr-2">></span>料金表</span>
+                                <span class="text-sm text-gray-400">View More</span>
+                            </a>
+                            <a href="#contact" class="flex justify-between items-center text-lg text-white hover:text-blue-500 transition-colors pb-2 border-b border-gray-700">
+                                <span><span class="text-blue-500 mr-2">></span>お問い合わせ</span>
+                                <span class="text-sm text-gray-400">View More</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ポートフォリオ (実績) -->
+        <section id="portfolio" class="py-20 md:py-32 bg-black relative">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold scroll-glitch" data-text="PORTFOLIO">PORTFOLIO</h2>
+                    <p class="text-gray-400 mt-2 scroll-fade">過去の実績</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- 実績アイテム 1 -->
+                    <div class="bg-gray-900 rounded-lg overflow-hidden group scroll-fade">
+                        <img src="https://placehold.co/600x400/1a1a1a/ffffff?text=Project+Alpha" alt="プロジェクトAlpha" class="w-full h-60 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold">プランを挿入</h3>
+                            <p class="text-gray-400 mt-2">本文を挿入</p>
+                        </div>
+                    </div>
+                    <!-- 実績アイテム 2 -->
+                    <div class="bg-gray-900 rounded-lg overflow-hidden group scroll-fade" style="transition-delay: 100ms;">
+                        <img src="https://placehold.co/600x400/1a1a1a/ffffff?text=Project+Beta" alt="プロジェクトBeta" class="w-full h-60 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold">プランを挿入</h3>
+                            <p class="text-gray-400 mt-2">本文を挿入</p>
+                        </div>
+                    </div>
+                    <!-- 実績アイテム 3 -->
+                    <div class="bg-gray-900 rounded-lg overflow-hidden group scroll-fade" style="transition-delay: 200ms;">
+                        <img src="https://placehold.co/600x400/1a1a1a/ffffff?text=Project+Gamma" alt="プロジェクトGamma" class="w-full h-60 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold">プランを挿入</h3>
+                            <p class="text-gray-400 mt-2">本文を挿入</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 料金表 -->
+        <section id="pricing" class="py-20 md:py-32 bg-black">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold scroll-glitch" data-text="PRICING">PRICING</h2>
+                    <p class="text-gray-400 mt-2 scroll-fade">料金表</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <!-- 料金プラン 1 -->
+                    <div class="bg-black p-8 rounded-lg border border-gray-800 text-center scroll-fade">
+                        <h3 class="text-2xl font-bold">Standard</h3>
+                        <p class="text-4xl font-bold my-4">¥300,000~</p>
+                        <ul class="text-gray-400 space-y-2">
+                            <li>文章を挿入</li>
+                            <li>文章を挿入</li>
+                            <li>文章を挿入</li>
+                        </ul>
+                    </div>
+                     <!-- 料金プラン 2 -->
+                    <div class="bg-white text-black p-8 rounded-lg border border-gray-800 text-center scale-105 scroll-fade" style="transition-delay: 100ms;">
+                        <h3 class="text-2xl font-bold">Professional</h3>
+                        <p class="text-4xl font-bold my-4">¥800,000~</p>
+                        <ul class="space-y-2">
+                            <li>文章を挿入</li>
+                            <li>文章を挿入</li>
+                            <li>文章を挿入</li>
+                        </ul>
+                    </div>
+                     <!-- 料金プラン 3 -->
+                    <div class="bg-black p-8 rounded-lg border border-gray-800 text-center scroll-fade" style="transition-delay: 200ms;">
+                        <h3 class="text-2xl font-bold">Enterprise</h3>
+                        <p class="text-4xl font-bold my-4">応相談</p>
+                        <ul class="text-gray-400 space-y-2">
+                            <li>文章を挿入</li>
+                            <li>文章を挿入</li>
+                            <li>文章を挿入</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- お知らせ -->
+        <section id="news" class="py-20 md:py-32 relative">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold scroll-glitch" data-text="NEWS">NEWS</h2>
+                    <p class="text-gray-400 mt-2 scroll-fade">お知らせ</p>
+                </div>
+                <div class="max-w-3xl mx-auto space-y-4">
+                    <!-- お知らせアイテム -->
+                    <a href="#" class="block p-6 bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors scroll-fade">
+                        <div class="flex justify-between items-center">
+                            <p><time datetime="2025-09-24">2025.09.24</time> - コーポレートサイトをリニューアルしました。</p>
+                            <span class="text-gray-400">&gt;</span>
+                        </div>
+                    </a>
+                    <a href="#" class="block p-6 bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors scroll-fade" style="transition-delay: 100ms;">
+                        <div class="flex justify-between items-center">
+                            <p><time datetime="2025-09-01">2025.09.01</time> - 新サービス「Future Standard」の提供を開始しました。</p>
+                            <span class="text-gray-400">&gt;</span>
+                        </div>
+                    </a>
+                     <a href="#" class="block p-6 bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors scroll-fade" style="transition-delay: 200ms;">
+                        <div class="flex justify-between items-center">
+                           <p><time datetime="2025-08-15">2025.08.15</time> - 夏季休業のお知らせ。</p>
+                            <span class="text-gray-400">&gt;</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ポリシー -->
+        <section id="policy" class="py-20 md:py-32 bg-gray-900">
+            <div class="container mx-auto px-6 max-w-3xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold scroll-glitch" data-text="POLICY">POLICY</h2>
+                    <p class="text-gray-400 mt-2 scroll-fade">プライバシーポリシー</p>
+                </div>
+                <div class="space-y-6 text-gray-300 scroll-fade">
+                    <p>株式会社NextGen Innovations（以下、「当社」といいます。）は、本ウェブサイト上で提供するサービス（以下、「本サービス」といいます。）における、ユーザーの個人情報の取扱いについて、以下のとおりプライバシーポリシー（以下、「本ポリシー」といいます。）を定めます。</p>
+                    <h3 class="text-xl font-bold text-white pt-4">第1条（個人情報）</h3>
+                    <p>「個人情報」とは、個人情報保護法にいう「個人情報」を指すものとし、生存する個人に関する情報であって、当該情報に含まれる氏名、生年月日、住所、電話番号、連絡先その他の記述等により特定の個人を識別できる情報及び容姿、指紋、声紋にかかるデータ、及び健康保険証の保険者番号などの当該情報単体から特定の個人を識別できる情報（個人識別情報）を指します。</p>
+                     <h3 class="text-xl font-bold text-white pt-4">第2条（個人情報の収集方法）</h3>
+                    <p>当社は、ユーザーが利用登録をする際に氏名、生年月日、住所、電話番号、メールアドレス、銀行口座番号、クレジットカード番号、運転免許証番号などの個人情報をお尋ねすることがあります。また、ユーザーと提携先などとの間でなされたユーザーの個人情報を含む取引記録や決済に関する情報を、当社の提携先（情報提供元、広告主、広告配信先などを含みます。以下、｢提携先｣といいます。）などから収集することがあります。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- お問い合わせ -->
+        <section id="contact" class="py-20 md:py-32">
+            <div class="container mx-auto px-6">
+                 <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold scroll-glitch" data-text="CONTACT">CONTACT</h2>
+                    <p class="text-gray-400 mt-2 scroll-fade">お問い合わせ</p>
+                </div>
+                <form class="max-w-xl mx-auto scroll-fade">
+                    <div class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-300">お名前</label>
+                            <input type="text" id="name" class="mt-1 block w-full bg-gray-900 border-gray-700 rounded-md shadow-sm focus:ring-white focus:border-white text-white p-3">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-300">メールアドレス</label>
+                            <input type="email" id="email" class="mt-1 block w-full bg-gray-900 border-gray-700 rounded-md shadow-sm focus:ring-white focus:border-white text-white p-3">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-300">お問い合わせ内容</label>
+                            <textarea id="message" rows="4" class="mt-1 block w-full bg-gray-900 border-gray-700 rounded-md shadow-sm focus:ring-white focus:border-white text-white p-3"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="bg-white text-black py-3 px-8 rounded-full font-bold hover:bg-gray-200 transition-all text-lg">送信する</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター -->
+    <footer class="bg-black py-12">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <p>&copy; 2025 NextGen Innovations Inc. All Rights Reserved.</p>
+        </div>
+    </footer>
+</div>
+    <script>
+        // --- モバイルメニューの開閉 ---
+        const menuButton = document.getElementById('menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a.mobile-nav-link');
+
+        menuButton.addEventListener('click', () => {
+            menuButton.classList.toggle('active');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuButton.classList.remove('active');
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // --- スクロールに応じたフェードインアニメーション ---
+        const scrollElements = document.querySelectorAll('.scroll-fade, .scroll-glitch');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        scrollElements.forEach(el => {
+            observer.observe(el);
+        });
+        
+        // --- スクロールに応じてアクティブなナビゲーションリンクを変更 ---
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('header nav a.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('nav-link-active');
+                if (link.getAttribute('href').includes(current) && current !== '') {
+                    link.classList.add('nav-link-active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
