@@ -158,6 +158,44 @@
             border-color: white !important; /* !important を追加して確実にスタイルを適用 */
             font-weight: 700;
         }
+        
+        /* --- Background Transition Animation --- */
+        #background-transition-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 5;
+            pointer-events: none;
+            display: grid;
+            grid-template-columns: repeat(20, 1fr);
+            grid-template-rows: repeat(10, 1fr);
+            overflow: hidden;
+        }
+
+        #background-transition-overlay span {
+            background-color: #111;
+            transform: rotate(45deg) scale(0);
+            opacity: 0;
+        }
+
+        #background-transition-overlay.is-playing span {
+            animation: bg-transition-wipe-dramatic 1s ease-in-out;
+        }
+
+        @keyframes bg-transition-wipe-dramatic {
+            0%, 100% {
+                transform: rotate(45deg) scale(0);
+                opacity: 0;
+            }
+            30%, 70% {
+                transform: rotate(45deg) scale(1.8);
+                opacity: 1;
+            }
+        }
+        
+        main > section {
+            position: relative;
+            z-index: 10;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -417,117 +455,156 @@
             <p>&copy; 2025 ULDNLC Inc. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <!-- Transition Overlay -->
+    <div id="background-transition-overlay"></div>
 </div>
     <script>
-        // --- モバイルメニューの開閉 ---
-        const menuButton = document.getElementById('menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileMenuLinks = mobileMenu.querySelectorAll('a.mobile-nav-link');
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- モバイルメニューの開閉 ---
+            const menuButton = document.getElementById('menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a.mobile-nav-link');
 
-        menuButton.addEventListener('click', () => {
-            menuButton.classList.toggle('active');
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        mobileMenuLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                menuButton.classList.remove('active');
-                mobileMenu.classList.add('hidden');
+            menuButton.addEventListener('click', () => {
+                menuButton.classList.toggle('active');
+                mobileMenu.classList.toggle('hidden');
             });
-        });
 
-        // --- スクロールに応じたフェードインアニメーション ---
-        const scrollElements = document.querySelectorAll('.scroll-fade, .scroll-glitch');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    menuButton.classList.remove('active');
+                    mobileMenu.classList.add('hidden');
+                });
             });
-        }, {
-            threshold: 0.2
-        });
 
-        scrollElements.forEach(el => {
-            observer.observe(el);
-        });
-        
-        // --- スクロールに応じてアクティブなナビゲーションリンクを変更 ---
-        const sections = document.querySelectorAll('main section[id]');
-        const navLinks = document.querySelectorAll('header nav a.nav-link');
-        const header = document.getElementById('header');
-
-        window.addEventListener('scroll', () => {
-            let current = '';
+            // --- スクロールに応じたフェードインアニメーション ---
+            const scrollElements = document.querySelectorAll('.scroll-fade, .scroll-glitch');
             
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const headerHeight = header.offsetHeight;
-                if (window.pageYOffset >= (sectionTop - headerHeight * 1.5)) { 
-                    current = section.getAttribute('id');
-                }
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.2
             });
 
-            // ページ最下部に到達した際の特別チェック
-            if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 2) {
-                current = sections[sections.length - 1].getAttribute('id');
+            scrollElements.forEach(el => {
+                observer.observe(el);
+            });
+            
+            // --- Section Transition ---
+            const backgroundOverlay = document.getElementById('background-transition-overlay');
+            if (backgroundOverlay) {
+                const rows = 10;
+                const cols = 20;
+                for (let i = 0; i < rows * cols; i++) {
+                    const box = document.createElement('span');
+                    const row = Math.floor(i / cols);
+                    const col = i % cols;
+                    // Create diagonal delay
+                    box.style.animationDelay = `${(row + col) * 0.04}s`;
+                    backgroundOverlay.appendChild(box);
+                }
             }
 
-            navLinks.forEach(link => {
-                link.classList.remove('nav-link-active');
-                if (link.getAttribute('href') === '#' + current && current !== '') {
-                    link.classList.add('nav-link-active');
+            function playTransition() {
+                if (backgroundOverlay) {
+                    backgroundOverlay.classList.add('is-playing');
+                    setTimeout(() => {
+                        backgroundOverlay.classList.remove('is-playing');
+                    }, 1200); // Animation duration + delay buffer
                 }
-            });
-        });
-
-
-        // --- お問い合わせフォームの送信処理 ---
-        const contactForm = document.getElementById('contact-form');
-        const formStatus = document.getElementById('form-status');
-
-        contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const formData = new FormData(contactForm);
-            const action = "YOUR_FORMSPREE_ENDPOINT_HERE"; // Formspreeで取得したURLに書き換えてください
-
-            if (action === "YOUR_FORMSPREE_ENDPOINT_HERE") {
-                formStatus.textContent = 'フォーム設定が完了していません。';
-                formStatus.style.color = 'red';
-                return;
             }
 
-            formStatus.textContent = '送信中...';
-            formStatus.style.color = 'white';
+            // --- スクロールに応じてアクティブなナビゲーションリンクを変更 & トランジション再生 ---
+            const sections = document.querySelectorAll('main section[id]');
+            const navLinks = document.querySelectorAll('header nav a.nav-link');
+            const header = document.getElementById('header');
+            let activeSection = '';
 
-            try {
-                const response = await fetch(action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
+            window.addEventListener('scroll', () => {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const headerHeight = header.offsetHeight;
+                    if (window.pageYOffset >= (sectionTop - headerHeight * 1.5)) { 
+                        current = section.getAttribute('id');
                     }
                 });
 
-                if (response.ok) {
-                    formStatus.textContent = 'お問い合わせありがとうございます。メッセージが送信されました。';
-                    formStatus.style.color = 'lightgreen';
-                    contactForm.reset();
-                } else {
-                    response.json().then(data => {
-                        if (Object.hasOwn(data, 'errors')) {
-                            formStatus.textContent = data["errors"].map(error => error["message"]).join(", ");
-                        } else {
-                            formStatus.textContent = 'エラーが発生しました。もう一度お試しください。';
-                        }
-                        formStatus.style.color = 'red';
-                    })
+                if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 2) {
+                    current = sections[sections.length - 1].getAttribute('id');
                 }
-            } catch (error) {
-                formStatus.textContent = 'エラーが発生しました。もう一度お試しください。';
-                formStatus.style.color = 'red';
+
+                if (current !== '' && current !== activeSection) {
+                    playTransition();
+                    activeSection = current;
+                } else if (window.pageYOffset < sections[0].offsetTop - header.offsetHeight * 1.5 && activeSection !== '') {
+                    activeSection = '';
+                }
+
+
+                navLinks.forEach(link => {
+                    link.classList.remove('nav-link-active');
+                    if (link.getAttribute('href') === '#' + current && current !== '') {
+                        link.classList.add('nav-link-active');
+                    }
+                });
+            });
+
+
+            // --- お問い合わせフォームの送信処理 ---
+            const contactForm = document.getElementById('contact-form');
+            const formStatus = document.getElementById('form-status');
+
+            if(contactForm) {
+                contactForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(contactForm);
+                    const action = "YOUR_FORMSPREE_ENDPOINT_HERE";
+
+                    if (action === "YOUR_FORMSPREE_ENDPOINT_HERE") {
+                        formStatus.textContent = 'フォーム設定が完了していません。';
+                        formStatus.style.color = 'red';
+                        return;
+                    }
+
+                    formStatus.textContent = '送信中...';
+                    formStatus.style.color = 'white';
+
+                    try {
+                        const response = await fetch(action, {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+
+                        if (response.ok) {
+                            formStatus.textContent = 'お問い合わせありがとうございます。メッセージが送信されました。';
+                            formStatus.style.color = 'lightgreen';
+                            contactForm.reset();
+                        } else {
+                            response.json().then(data => {
+                                if (Object.hasOwn(data, 'errors')) {
+                                    formStatus.textContent = data["errors"].map(error => error["message"]).join(", ");
+                                } else {
+                                    formStatus.textContent = 'エラーが発生しました。もう一度お試しください。';
+                                }
+                                formStatus.style.color = 'red';
+                            })
+                        }
+                    } catch (error) {
+                        formStatus.textContent = 'エラーが発生しました。もう一度お試しください。';
+                        formStatus.style.color = 'red';
+                    }
+                });
             }
         });
     </script>
