@@ -154,9 +154,9 @@
 
         /* スクロール時にアクティブなナビゲーションリンクを示すスタイル */
         .nav-link-active {
-            color: white !important; /* テキストを白に */
-            border-color: white; /* 下線も白に */
-            font-weight: 700; /* フォントを太字に */
+            color: white !important;
+            border-color: white !important; /* !important を追加して確実にスタイルを適用 */
+            font-weight: 700;
         }
     </style>
 </head>
@@ -170,16 +170,16 @@
                     <img src="image/uldnlc-logo2.jpeg" alt="ULDNLC Innovations Logo" class="h-12 w-auto">
                 </a>
             </div>
-            <!-- PC用ナビゲーション -->
-            <nav class="hidden md:flex items-center space-x-8 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
-                <a href="#about" class="nav-link text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1">会社概要</a>
-                <a href="#portfolio" class="nav-link text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1">実績</a>
-                <a href="#pricing" class="nav-link text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1">料金表</a>
-                <a href="#news" class="nav-link text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1">お知らせ</a>
-                <a href="#policy" class="nav-link text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1">ポリシー</a>
-                <a href="#contact" class="nav-link text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1">お問い合わせ</a>
+            <!-- PC用ナビゲーション (md以上で表示) -->
+            <nav class="hidden md:flex items-center md:space-x-4 lg:space-x-8 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+                <a href="#about" class="nav-link text-sm lg:text-base text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-white pb-1 whitespace-nowrap">会社概要</a>
+                <a href="#portfolio" class="nav-link text-sm lg:text-base text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-white pb-1 whitespace-nowrap">実績</a>
+                <a href="#pricing" class="nav-link text-sm lg:text-base text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-white pb-1 whitespace-nowrap">料金表</a>
+                <a href="#news" class="nav-link text-sm lg:text-base text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-white pb-1 whitespace-nowrap">お知らせ</a>
+                <a href="#policy" class="nav-link text-sm lg:text-base text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-white pb-1 whitespace-nowrap">ポリシー</a>
+                <a href="#contact" class="nav-link text-sm lg:text-base text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-white pb-1 whitespace-nowrap">お問い合わせ</a>
             </nav>
-            <!-- モバイル用メニューボタン -->
+            <!-- モバイル用メニューボタン (md未満で表示) -->
             <button id="menu-button" class="md:hidden z-50 menu-trigger space-y-2">
                 <span class="block w-8 h-0.5 bg-white"></span>
                 <span class="block w-8 h-0.5 bg-white"></span>
@@ -204,7 +204,7 @@
         <!-- メインビュー -->
         <section class="h-screen flex items-center justify-center text-center relative">
             <div class="video-container">
-                <video id="bg-video" src="image/uldnlc-video-mini.mp4" autoplay muted loop playsinline></video>
+                <video id="bg-video" src="image/uldnlc-video.mp4" autoplay muted loop playsinline></video>
             </div>
             <div class="video-overlay"></div>
             <div class="scanline-overlay"></div>
@@ -454,26 +454,34 @@
         });
         
         // --- スクロールに応じてアクティブなナビゲーションリンクを変更 ---
-        const sections = document.querySelectorAll('section[id]');
+        const sections = document.querySelectorAll('main section[id]');
         const navLinks = document.querySelectorAll('header nav a.nav-link');
+        const header = document.getElementById('header');
 
         window.addEventListener('scroll', () => {
             let current = '';
+            
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                const headerHeight = header.offsetHeight;
+                if (window.pageYOffset >= (sectionTop - headerHeight * 1.5)) { 
                     current = section.getAttribute('id');
                 }
             });
 
+            // ページ最下部に到達した際の特別チェック
+            if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 2) {
+                current = sections[sections.length - 1].getAttribute('id');
+            }
+
             navLinks.forEach(link => {
                 link.classList.remove('nav-link-active');
-                if (link.getAttribute('href').includes(current) && current !== '') {
+                if (link.getAttribute('href') === '#' + current && current !== '') {
                     link.classList.add('nav-link-active');
                 }
             });
         });
+
 
         // --- お問い合わせフォームの送信処理 ---
         const contactForm = document.getElementById('contact-form');
