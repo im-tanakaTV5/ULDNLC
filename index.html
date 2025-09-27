@@ -218,9 +218,9 @@
                 <a href="#about" class="nav-link text-sm lg:text-base text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-white pb-1 whitespace-nowrap">会社概要</a>
                 <a href="#portfolio" class="nav-link text-sm lg:text-base text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-white pb-1 whitespace-nowrap">実績</a>
                 <a href="#pricing" class="nav-link text-sm lg:text-base text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-white pb-1 whitespace-nowrap">料金表</a>
+                <a href="#policy" class="nav-link text-sm lg:text-base text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-white pb-1 whitespace-nowrap">ULDNLCとは</a>
                 <a href="#news" class="nav-link text-sm lg:text-base text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-white pb-1 whitespace-nowrap">お知らせ</a>
-                <a href="#policy" class="nav-link text-sm lg:text-base text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-white pb-1 whitespace-nowrap">ポリシー</a>
-                <a href="#contact" class="nav-link text-sm lg:text-base text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-white pb-1 whitespace-nowrap">依頼のご相談</a>
+                <a href="#contact" class="nav-link text-sm lg:text-base text-gray-300 hover:text-white transition-colors border-b-2 border-transparent hover:border-white pb-1 whitespace-nowrap">ご依頼</a>
             </nav>
             <!-- モバイル用メニューボタン (md未満で表示) -->
             <button id="menu-button" class="md:hidden z-50 menu-trigger space-y-2">
@@ -237,9 +237,9 @@
             <a href="#about" class="mobile-nav-link text-2xl text-gray-300 hover:text-white transition-colors">会社概要</a>
             <a href="#portfolio" class="mobile-nav-link text-2xl text-gray-300 hover:text-white transition-colors">実績</a>
             <a href="#pricing" class="mobile-nav-link text-2xl text-gray-300 hover:text-white transition-colors">料金表</a>
+            <a href="#policy" class="mobile-nav-link text-2xl text-gray-300 hover:text-white transition-colors">ULDNLCとは</a>
             <a href="#news" class="mobile-nav-link text-2xl text-gray-300 hover:text-white transition-colors">お知らせ</a>
-            <a href="#policy" class="mobile-nav-link text-2xl text-gray-300 hover:text-white transition-colors">ポリシー</a>
-            <a href="#contact" class="mobile-nav-link text-2xl text-gray-300 hover:text-white transition-colors">依頼のご相談</a>
+            <a href="#contact" class="mobile-nav-link text-2xl text-gray-300 hover:text-white transition-colors">ご依頼</a>
         </nav>
     </div>
 
@@ -247,19 +247,22 @@
         <!-- メインビュー -->
         <section class="h-screen flex items-center justify-center text-center relative">
             <div class="video-container">
-                <video id="bg-video" src="image/uldnlc-video2-mini.mp4" autoplay muted loop playsinline></video>
+                <video id="bg-video" src="image/uldnlc-video3-mini.mp4" autoplay muted loop playsinline></video>
             </div>
             <div class="video-overlay"></div>
             <div class="scanline-overlay"></div>
             <div class="z-10 px-4">
+                <h1 class="text-5xl md:text-8xl font-black uppercase tracking-widest leading-tight">
+                    ULDNLC
+                </h1>
                 <p class="mt-4 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
-                    文章を挿入
+                    Creative Beyond Limits
                 </p>
             </div>
         </section>
 
         <!-- 会社概要 -->
-        <section id="about" class="py-20 md:py-32">
+        <section id="about" class="py-20 md:py-32 bg-black">
             <div class="container mx-auto px-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-24 items-start">
                     <!-- Left Column: Images -->
@@ -285,7 +288,7 @@
                                 <span class="text-sm text-gray-400">View More</span>
                             </a>
                             <a href="#contact" class="flex justify-between items-center text-lg text-white hover:text-blue-500 transition-colors pb-2 border-b border-gray-700">
-                                <span>依頼のご相談</span>
+                                <span>ご依頼はこちらから</span>
                                 <span class="text-sm text-gray-400">View More</span>
                             </a>
                         </div>
@@ -295,7 +298,7 @@
         </section>
 
         <!-- ポートフォリオ (実績) -->
-        <section id="portfolio" class="py-20 md:py-32 bg-black relative">
+        <section id="portfolio" class="py-20 md:py-32 bg-gray-900 relative">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
                     <h2 class="text-4xl md:text-5xl font-bold scroll-glitch" data-text="PORTFOLIO">PORTFOLIO</h2>
@@ -303,7 +306,7 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- 実績アイテム 1 -->
-                    <div class="bg-gray-900 rounded-lg overflow-hidden group scroll-fade">
+                    <div class="bg-gray-800 rounded-lg overflow-hidden group scroll-fade">
                         <img src="https://placehold.co/600x400/1a1a1a/ffffff?text=Project+Alpha" alt="プロジェクトAlpha" class="w-full h-60 object-cover group-hover:scale-105 transition-transform duration-300">
                         <div class="p-6">
                             <h3 class="text-xl font-bold">プランを挿入</h3>
@@ -311,7 +314,7 @@
                         </div>
                     </div>
                     <!-- 実績アイテム 2 -->
-                    <div class="bg-gray-900 rounded-lg overflow-hidden group scroll-fade" style="transition-delay: 100ms;">
+                    <div class="bg-gray-800 rounded-lg overflow-hidden group scroll-fade" style="transition-delay: 100ms;">
                         <img src="https://placehold.co/600x400/1a1a1a/ffffff?text=Project+Beta" alt="プロジェクトBeta" class="w-full h-60 object-cover group-hover:scale-105 transition-transform duration-300">
                         <div class="p-6">
                             <h3 class="text-xl font-bold">プランを挿入</h3>
@@ -319,7 +322,7 @@
                         </div>
                     </div>
                     <!-- 実績アイテム 3 -->
-                    <div class="bg-gray-900 rounded-lg overflow-hidden group scroll-fade" style="transition-delay: 200ms;">
+                    <div class="bg-gray-800 rounded-lg overflow-hidden group scroll-fade" style="transition-delay: 200ms;">
                         <img src="https://placehold.co/600x400/1a1a1a/ffffff?text=Project+Gamma" alt="プロジェクトGamma" class="w-full h-60 object-cover group-hover:scale-105 transition-transform duration-300">
                         <div class="p-6">
                             <h3 class="text-xl font-bold">プランを挿入</h3>
@@ -334,12 +337,12 @@
         <section id="pricing" class="py-20 md:py-32 bg-black">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-bold scroll-glitch" data-text="PRICING">PRICING</h2>
+                    <h2 class="text-4xl md:text-5xl font-bold scroll-glitch" data-text="PRICE">PRICE</h2>
                     <p class="text-gray-400 mt-2 scroll-fade">料金表</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                     <!-- 料金プラン 1 -->
-                    <div class="bg-black p-8 rounded-lg border border-gray-800 text-center scroll-fade">
+                    <div class="bg-gray-900 p-8 rounded-lg border border-gray-800 text-center scroll-fade">
                         <h3 class="text-2xl font-bold">Standard</h3>
                         <p class="text-4xl font-bold my-4">¥300,000~</p>
                         <ul class="text-gray-400 space-y-2">
@@ -359,7 +362,7 @@
                         </ul>
                     </div>
                      <!-- 料金プラン 3 -->
-                    <div class="bg-black p-8 rounded-lg border border-gray-800 text-center scroll-fade" style="transition-delay: 200ms;">
+                    <div class="bg-gray-900 p-8 rounded-lg border border-gray-800 text-center scroll-fade" style="transition-delay: 200ms;">
                         <h3 class="text-2xl font-bold">Enterprise</h3>
                         <p class="text-4xl font-bold my-4">応相談</p>
                         <ul class="text-gray-400 space-y-2">
@@ -372,43 +375,12 @@
             </div>
         </section>
 
-        <!-- お知らせ -->
-        <section id="news" class="py-20 md:py-32 relative">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-bold scroll-glitch" data-text="NEWS">NEWS</h2>
-                    <p class="text-gray-400 mt-2 scroll-fade">お知らせ</p>
-                </div>
-                <div class="max-w-3xl mx-auto space-y-4">
-                    <!-- お知らせアイテム -->
-                    <a href="#" class="block p-6 bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors scroll-fade">
-                        <div class="flex justify-between items-center">
-                            <p><time datetime="2025-09-24">2025.09.24</time> - コーポレートサイトをリニューアルしました。</p>
-                            <span class="text-gray-400">&gt;</span>
-                        </div>
-                    </a>
-                    <a href="#" class="block p-6 bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors scroll-fade" style="transition-delay: 100ms;">
-                        <div class="flex justify-between items-center">
-                            <p><time datetime="2025-09-01">2025.09.01</time> - 新サービス「Future Standard」の提供を開始しました。</p>
-                            <span class="text-gray-400">&gt;</span>
-                        </div>
-                    </a>
-                     <a href="#" class="block p-6 bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors scroll-fade" style="transition-delay: 200ms;">
-                        <div class="flex justify-between items-center">
-                           <p><time datetime="2025-08-15">2025.08.15</time> - 夏季休業のお知らせ。</p>
-                            <span class="text-gray-400">&gt;</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- ポリシー -->
+        <!-- ULDNLCとは -->
         <section id="policy" class="py-20 md:py-32 bg-gray-900">
             <div class="container mx-auto px-6 max-w-3xl">
                 <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-bold scroll-glitch" data-text="POLICY">POLICY</h2>
-                    <p class="text-gray-400 mt-2 scroll-fade">ポリシー</p>
+                    <h2 class="text-4xl md:text-5xl font-bold scroll-glitch" data-text="What is ULDNLC">What is ULDNLC</h2>
+                    <p class="text-gray-400 mt-2 scroll-fade">ULDNLCとは</p>
                 </div>
                 <div class="space-y-6 text-gray-300 scroll-fade">
                     <p>株式会社ULDNLC（以下、「当社」といいます。）は、本ウェブサイト上で提供するサービス（以下、「本サービス」といいます。）における、ユーザーの個人情報の取扱いについて、以下のとおりプライバシーポリシー（以下、「本ポリシー」といいます。）を定めます。</p>
@@ -420,26 +392,45 @@
             </div>
         </section>
 
+        <!-- お知らせ -->
+        <section id="news" class="py-20 md:py-32 relative bg-black">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold scroll-glitch" data-text="NEWS">NEWS</h2>
+                    <p class="text-gray-400 mt-2 scroll-fade">お知らせ</p>
+                </div>
+                <div class="max-w-3xl mx-auto space-y-4">
+                    <!-- お知らせアイテム -->
+                    <a href="#" class="block p-6 bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors scroll-fade">
+                        <div class="flex justify-between items-center">
+                            <p><time datetime="2025-09-27">2025.09.27</time> - 弊社のホームページを開設しました。</p>
+                            <span class="text-gray-400">&gt;</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
         <!-- 依頼のご相談 -->
-        <section id="contact" class="py-20 md:py-32">
+        <section id="contact" class="py-20 md:py-32 bg-gray-900">
             <div class="container mx-auto px-6">
                  <div class="text-center mb-16">
                     <h2 class="text-4xl md:text-5xl font-bold scroll-glitch" data-text="CONTACT">CONTACT</h2>
-                    <p class="text-gray-400 mt-2 scroll-fade">依頼のご相談</p>
+                    <p class="text-gray-400 mt-2 scroll-fade">ご依頼はこちらから</p>
                 </div>
                 <form id="contact-form" class="max-w-xl mx-auto scroll-fade">
                     <div class="space-y-6">
                         <div>
-                            <label for="name" class="block text-sm font-medium text-gray-300">お名前</label>
-                            <input type="text" id="name" name="name" class="mt-1 block w-full bg-gray-900 border-gray-700 rounded-md shadow-sm focus:ring-white focus:border-white text-white p-3" required>
+                            <label for="name" class="block text-sm font-medium text-gray-300">お名前（企業名）</label>
+                            <input type="text" id="name" name="name" class="mt-1 block w-full bg-gray-800 border-gray-700 rounded-md shadow-sm focus:ring-white focus:border-white text-white p-3" required>
                         </div>
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-300">メールアドレス</label>
-                            <input type="email" id="email" name="email" class="mt-1 block w-full bg-gray-900 border-gray-700 rounded-md shadow-sm focus:ring-white focus:border-white text-white p-3" required>
+                            <input type="email" id="email" name="email" class="mt-1 block w-full bg-gray-800 border-gray-700 rounded-md shadow-sm focus:ring-white focus:border-white text-white p-3" required>
                         </div>
                         <div>
-                            <label for="message" class="block text-sm font-medium text-gray-300">ご相談内容</label>
-                            <textarea id="message" name="message" rows="4" class="mt-1 block w-full bg-gray-900 border-gray-700 rounded-md shadow-sm focus:ring-white focus:border-white text-white p-3" required></textarea>
+                            <label for="message" class="block text-sm font-medium text-gray-300">ご相談内容（ご依頼）</label>
+                            <textarea id="message" name="message" rows="4" class="mt-1 block w-full bg-gray-800 border-gray-700 rounded-md shadow-sm focus:ring-white focus:border-white text-white p-3" required></textarea>
                         </div>
                         <div class="text-center">
                             <button type="submit" class="bg-white text-black py-3 px-8 rounded-full font-bold hover:bg-gray-200 transition-all text-lg">送信する</button>
@@ -568,7 +559,7 @@
                     e.preventDefault();
                     
                     const formData = new FormData(contactForm);
-                    const action = "YOUR_FORMSPREE_ENDPOINT_HERE";
+                    const action = "https://formspree.io/f/xjkagoly";
 
                     if (action === "YOUR_FORMSPREE_ENDPOINT_HERE") {
                         formStatus.textContent = 'フォーム設定が完了していません。';
