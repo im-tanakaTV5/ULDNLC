@@ -19,6 +19,10 @@ h2 {
     font-family: 'Noto Serif JP', serif;
 }
 
+.font-neue-haas {
+    font-family: 'neue-haas-grotesk-display', sans-serif;
+}
+
 .wrapper {
     overflow-x: hidden;
 }
