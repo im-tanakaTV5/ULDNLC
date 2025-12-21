@@ -6,9 +6,19 @@ body {
 }
 
 /* 見出し用のフォントを適用 */
-h1,
+h1 {
+    font-family: 'Bodoni Moda', serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
 h2 {
     font-family: 'Cormorant Garamond', serif;
+}
+
+.font-bodoni-bold-condensed {
+    font-family: 'Bodoni BdCn BT', 'Bodoni Moda', serif;
+    font-weight: 700;
 }
 
 .font-cormorant {
