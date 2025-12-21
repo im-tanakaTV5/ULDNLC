@@ -15,6 +15,10 @@ h3 {
     font-family: 'Cabin', 'Noto Sans JP', sans-serif;
 }
 
+.font-cormorant {
+    font-family: 'Cormorant Garamond', serif;
+}
+
 .wrapper {
     overflow-x: hidden;
 }
